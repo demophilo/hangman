@@ -6,10 +6,9 @@ const prompt = require("prompt-sync")();
 //console.log(figure);
 
 function chooseDifficulty () {
-  let difficulty;
+  let difficulty = "0";
   while (!((difficulty === "1") || (difficulty === "2"))) {
     difficulty = prompt("Choose difficulty: \"1\" for easy and \"2\" for hard:");
-    console.log(typeof(difficulty), difficulty,difficulty)
   }
   return difficulty;
 }
