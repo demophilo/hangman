@@ -6,16 +6,17 @@ const prompt = require("prompt-sync")();
 //console.log(figure);
 
 function chooseDifficulty () {
-  let difficulty = 0;
-  while (difficulty !== 1 || difficulty !== 2) {
-    difficulty = prompt("Choose difficulty: \n\"1\" for easy and \"2\"for hard:");
+  let difficulty;
+  while (!((difficulty === "1") || (difficulty === "2"))) {
+    difficulty = prompt("Choose difficulty: \"1\" for easy and \"2\" for hard:");
+    console.log(typeof(difficulty), difficulty,difficulty)
   }
   return difficulty;
 }
 
 function chooseWordToGuess(difficulty) {
   let wordToGuess;
-  if (difficulty === 1) {
+  if (difficulty === "1") {
     wordToGuess = WORDS_TO_GUESS.easy[Math.floor(Math.random() * WORDS_TO_GUESS.easy.length)];
   } else {
     wordToGuess = WORDS_TO_GUESS.hard[Math.floor(Math.random() * WORDS_TO_GUESS.easy.length)];
@@ -23,6 +24,9 @@ function chooseWordToGuess(difficulty) {
   return wordToGuess;
 }
 
+let difficulty = chooseDifficulty();
+let wordToGuess = chooseWordToGuess(difficulty);
+console.log(wordToGuess);
 
 
 
