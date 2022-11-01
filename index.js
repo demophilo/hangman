@@ -33,3 +33,18 @@ console.log(gameStatus);
 
 // how to use the prompt - e.g.:
 // const name = prompt('What is your name?');
+
+function generateWordOnScreen(wordToGuess,guessedLetters) {
+  let displayedLetters =[]
+  for(const guessedLetter of guessedLetters){
+    for(const letterOfWord of wordToGuess){
+      if(letterOfWord === guessedLetter){
+        displayedLetters.push(guessedLetter)
+      } else {
+        displayedLetters.push("_")
+      }
+    }
+  }
+  return displayedLetters;
+
+}
