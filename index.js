@@ -36,6 +36,13 @@ const alphabet ={
   "y": "y",
   "z": "z"
 }
+let chosenLetter;
+let chosenLetters = new Set();
+let difficulty;
+let wordToGuess;
+let wordOnScreen;
+
+
 /*
 Functions section
  */
@@ -60,10 +67,10 @@ function chooseWordToGuess(difficulty) {
 }
 
 
-function generateWordOnScreen(wordToGuess,guessedLetters) {
+function generateWordOnScreen(wordToGuess,chosenLetters) {
   let displayedLetters =[];
   for (const letterOfWord of wordToGuess){
-    for (const guessedLetter of guessedLetters) {
+    for (const guessedLetter of chosenLetters.value()) {
       if(letterOfWord === guessedLetter) {
         displayedLetters.push(guessedLetter);
         break;
@@ -77,12 +84,17 @@ function generateWordOnScreen(wordToGuess,guessedLetters) {
 }
 
 
+function inputChosenLetter() {
+  return prompt("Which letter to attempt?");
+}
+
+
 function generateLettersToChoose(chosenLetters) {
   let lettersToChoose = [];
   for (const chosenLetter of Object.valueOf(chosenLetters)) {
     for (const letterInAlphabet of Object.valueOf(alphabet)) {
       if (chosenLetter === letterInAlphabet) {
-        lettersToChoose.push(_);
+        lettersToChoose.push("_");
       } else {
         lettersToChoose.push(letterInAlphabet );
       }
@@ -92,14 +104,20 @@ function generateLettersToChoose(chosenLetters) {
 }
 
 
+
+
 /*
-Main program
+Main program ---
  */
 
 
-let difficulty = chooseDifficulty();
-let wordToGuess = chooseWordToGuess(difficulty);
-console.log(wordToGuess);
+difficulty = chooseDifficulty();
+wordToGuess = chooseWordToGuess(difficulty);
+chosenLetter = inputChosenLetter();
+chosenLetters.add(chosenLetter);
+wordOnScreen = generateWordOnScreen(wordToGuess, chosenLetters)
+console.log(generateWordOnScreen(chooseWordToGuess()))
+
 
 //console.log(figure);
 
