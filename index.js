@@ -1,6 +1,3 @@
-/*
-Global variables section
- */
 
 const { WORDS_TO_GUESS } = require("./constants");
 const HANGMAN_PICS = require("./constants");
@@ -34,7 +31,7 @@ function chooseWordToGuess(gameMode) {
 function setLives(gameMode){
   let lives;
   if (gameMode === "easy") {
-    lives = 7;
+    lives = 6;
   } else if (gameMode === "hard"){
     lives = 4;
   }
@@ -47,7 +44,7 @@ function inputChosenLetter() {
   while (input.length !== 1) {
     input = prompt("Which letter to attempt? ");
     if (input === "quit") {
-      input = "ü"
+      input = "#";
     }
     input = input.toLowerCase();
     input = input.trim();
@@ -70,8 +67,6 @@ function generateWordOnScreen(wordToGuess, rightLetters) {
 }
 
 
-
-
 console.log("\n".repeat(50));
 let gameMode = choseGameMode();
 let wordToGuess = chooseWordToGuess(gameMode);
@@ -86,7 +81,7 @@ let won = undefined;
 
 while ( won === undefined) {
   let chosenLetter = inputChosenLetter();
-  if (chosenLetter === 0){
+  if (chosenLetter === "#"){
     break;
   }
   chosenLetters.add(chosenLetter);
@@ -105,7 +100,7 @@ while ( won === undefined) {
   }
 
   console.log("\n".repeat(50));
-  console.log(HANGMAN_PICS.HANGMAN_PICS[7-remainingLives]);
+  console.log(HANGMAN_PICS.HANGMAN_PICS[6-remainingLives]);
   console.log(displayedWord);
   console.log("Remaining lives:  ", remainingLives);
 }
@@ -115,6 +110,8 @@ if (won === true) {
 } else if (won === false) {
   console.log("Lost");
 }
+
+
 
 function generateLettersToChoose(chosenLetters) {
   let lettersToChoose = [];
