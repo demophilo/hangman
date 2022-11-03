@@ -44,10 +44,14 @@ function inputChosenLetter() {
   while (input.length !== 1) {
     input = prompt("Which letter to attempt? ");
     if (input === "quit") {
-      input = "#";
+      return "quit";
     }
     input = input.toLowerCase();
     input = input.trim();
+    let allowedCharacters = new Set(["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]);
+    if (!allowedCharacters.has(input)) {
+      input = ""
+    }
   }
   return input;
 }
@@ -67,6 +71,8 @@ function generateWordOnScreen(wordToGuess, rightLetters) {
 
 
 console.log("\n".repeat(50));
+
+
 let gameMode = choseGameMode();
 let wordToGuess = chooseWordToGuess(gameMode);
 console.log(wordToGuess);
@@ -80,7 +86,7 @@ let won = undefined;
 
 while ( won === undefined) {
   let chosenLetter = inputChosenLetter();
-  if (chosenLetter === "#"){
+  if (chosenLetter === "quit"){
     break;
   }
   chosenLetters.add(chosenLetter);
@@ -107,11 +113,13 @@ while ( won === undefined) {
 if (won === true) {
   console.log("Won!");
 } else if (won === false) {
+  console.log("\n".repeat(50));
+  console.log(HANGMAN_PICS.HANGMAN_PICS[7]);
   console.log("Lost");
 }
 
 
-
+/*
 function generateLettersToChoose(chosenLetters) {
   let lettersToChoose = [];
   for (const chosenLetter of Object.valueOf(chosenLetters)) {
@@ -126,31 +134,4 @@ function generateLettersToChoose(chosenLetters) {
   return lettersToChoose;
 }
 
-const alphabet ={
-  "a": "a",
-  "b": "b",
-  "c": "c",
-  "d": "d",
-  "e": "e",
-  "f": "f",
-  "g": "g",
-  "h": "h",
-  "i": "i",
-  "j": "j",
-  "k": "k",
-  "l": "l",
-  "m": "m",
-  "n": "n",
-  "o": "o",
-  "p": "p",
-  "q": "q",
-  "r": "r",
-  "s": "s",
-  "t": "t",
-  "u": "u",
-  "v": "v",
-  "w": "w",
-  "x": "x",
-  "y": "y",
-  "z": "z"
-}
+*/
