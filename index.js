@@ -36,29 +36,33 @@ const alphabet ={
   "y": "y",
   "z": "z"
 }
-let chosenLetter;
-let chosenLetters = new Set();
-let difficulty;
-let wordToGuess;
-let wordOnScreen;
+
+
+
 
 
 /*
 Functions section
  */
 
-function chooseDifficulty () {
-  let difficulty = "0";
-  while (!((difficulty === "1") || (difficulty === "2"))) {
-    difficulty = prompt("Choose difficulty: \"1\" for easy and \"2\" for hard:");
+function gameMode () {
+  let input = "0";
+  while (!((input === "1") || (input === "2"))) {
+    input = prompt("Choose game mode: \"1\" for easy and \"2\" for hard:");
   }
-  return difficulty;
+  if (input === "1") {
+    input ="easy";
+  } else {
+    input = "hard"
+  }
+  return input;
 }
 
 
-function chooseWordToGuess(difficulty) {
+
+function chooseWordToGuess(gameMode) {
   let wordToGuess;
-  if (difficulty === "1") {
+  if (gameMode === "easy") {
     wordToGuess = WORDS_TO_GUESS.easy[Math.floor(Math.random() * WORDS_TO_GUESS.easy.length)];
   } else {
     wordToGuess = WORDS_TO_GUESS.hard[Math.floor(Math.random() * WORDS_TO_GUESS.easy.length)];
@@ -83,11 +87,18 @@ function generateWordOnScreen(wordToGuess,chosenLetters) {
   return displayedLetters;
 }
 
-
-function inputChosenLetter() {
-  return prompt("Which letter to attempt?");
+let chosenLetters = new Set();
+function inputChosenLetter(chosenLetters) {
+  let chosenLetter = "unit";
+  while (chosenLetter.length !== 1){
+    chosenLetter = prompt("Which letter to attempt?   ");
+    chosenLetter = chosenLetter.trim();
+    chosenLetter = chosenLetter.toLowerCase();
+  }
+  chosenLetters.add(`chosenLetter`)
+  return chosenLetters;
 }
-
+console.log(inputChosenLetter().values())
 
 function generateLettersToChoose(chosenLetters) {
   let lettersToChoose = [];
@@ -108,7 +119,7 @@ function generateLettersToChoose(chosenLetters) {
 
 /*
 Main program ---
- */
+
 
 
 difficulty = chooseDifficulty();
@@ -117,7 +128,7 @@ chosenLetter = inputChosenLetter();
 chosenLetters.add(chosenLetter);
 wordOnScreen = generateWordOnScreen(wordToGuess, chosenLetters)
 console.log(generateWordOnScreen(chooseWordToGuess()))
-
+*/
 
 //console.log(figure);
 
