@@ -82,9 +82,9 @@ let chosenLetters = new Set();
 let rightLetters = new Set();
 let wrongLetters = new Set();
 let remainingLives = 1;
-let won = false;
+let won = undefined;
 
-while (!(remainingLives === 0 || won === true)) {
+while ( won === undefined) {
   let chosenLetter = inputChosenLetter();
   if (chosenLetter === 0){
     break;
@@ -95,19 +95,21 @@ while (!(remainingLives === 0 || won === true)) {
   } else if (!lettersInWord.has(chosenLetter)) {
     wrongLetters.add(chosenLetter);
   }
-  remainigLives = startingLives - wrongLetters.size;
+  remainingLives = startingLives - wrongLetters.size;
 
   let displayedWord = generateWordOnScreen(wordToGuess,rightLetters)
   if (rightLetters.size === lettersInWord.size) {
     won = true;
-  } else if (rightLetters.size === lettersInWord.size) {
+  } else if (remainingLives === 0) {
     won = false;
   }
+
   console.log("\n".repeat(50));
-  console.log(HANGMAN_PICS.HANGMAN_PICS[7-remainigLives]);
+  console.log(HANGMAN_PICS.HANGMAN_PICS[7-remainingLives]);
   console.log(displayedWord);
-  console.log("Remaining lives:  ", remainigLives);
+  console.log("Remaining lives:  ", remainingLives);
 }
+
 if (won === true) {
   console.log("Won!");
 } else if (won === false) {
