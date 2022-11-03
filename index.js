@@ -6,7 +6,7 @@ const prompt = require("prompt-sync")();
 
 
 function choseGameMode() {
-  let key;
+  let key = "";
   while (!((key === "1") || (key === "2"))) {
     key = prompt("Choose game: \"1\" for easy \"2\" for hard: ");
   }
@@ -62,8 +62,7 @@ function generateWordOnScreen(wordToGuess, rightLetters) {
       displayedLetters.push("_");
     }
   }
-  let displayedWord = displayedLetters.join("");
-  return displayedWord;
+  return displayedLetters.join("");
 }
 
 
