@@ -28,12 +28,13 @@ function chooseWordToGuess(gameMode) {
   return wordToGuess;
 }
 
+
 function setLives(gameMode){
   let lives;
   if (gameMode === "easy") {
-    lives = 6;
+    lives = 5;
   } else if (gameMode === "hard"){
-    lives = 4;
+    lives = 3;
   }
   return lives;
 }
@@ -51,11 +52,12 @@ function inputChosenLetter() {
     let allowedCharacters = new Set(["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
       "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]);
     if (!allowedCharacters.has(input)) {
-      input = ""
+      input = "";
     }
   }
   return input;
 }
+
 
 function generateWordOnScreen(wordToGuess, rightLetters) {
   let lettersOfWord = wordToGuess.split("");
@@ -72,11 +74,9 @@ function generateWordOnScreen(wordToGuess, rightLetters) {
 
 
 console.log("\n".repeat(50));
-
-
 let gameMode = choseGameMode();
 let wordToGuess = chooseWordToGuess(gameMode);
-console.log(wordToGuess);
+console.log(wordToGuess); // remove after presentation
 let startingLives = setLives(gameMode);
 let lettersInWord = new Set(wordToGuess.split(""));
 let chosenLetters = new Set();
@@ -85,20 +85,20 @@ let wrongLetters = new Set();
 let remainingLives = 1;
 let won = undefined;
 
-while ( won === undefined) {
+while (won === undefined) {
   let chosenLetter = inputChosenLetter();
   if (chosenLetter === "quit"){
     break;
   }
   chosenLetters.add(chosenLetter);
-  if (lettersInWord.has(chosenLetter)){
+  if (lettersInWord.has(chosenLetter)) {
     rightLetters.add(chosenLetter);
   } else if (!lettersInWord.has(chosenLetter)) {
     wrongLetters.add(chosenLetter);
   }
   remainingLives = startingLives - wrongLetters.size;
 
-  let displayedWord = generateWordOnScreen(wordToGuess,rightLetters)
+  let displayedWord = generateWordOnScreen(wordToGuess,rightLetters);
   if (rightLetters.size === lettersInWord.size) {
     won = true;
   } else if (remainingLives === 0) {
