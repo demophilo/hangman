@@ -48,7 +48,8 @@ function inputChosenLetter() {
     }
     input = input.toLowerCase();
     input = input.trim();
-    let allowedCharacters = new Set(["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]);
+    let allowedCharacters = new Set(["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+      "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]);
     if (!allowedCharacters.has(input)) {
       input = ""
     }
@@ -105,16 +106,16 @@ while ( won === undefined) {
   }
 
   console.log("\n".repeat(50));
-  console.log(HANGMAN_PICS.HANGMAN_PICS[6-remainingLives]);
+  console.log(HANGMAN_PICS.HANGMAN_PICS[5-remainingLives]);
   console.log(displayedWord);
   console.log("Remaining lives:  ", remainingLives);
 }
 
 if (won === true) {
   console.log("Won!");
-} else if (won === false) {
+} else if (won === false || won === undefined) {
   console.log("\n".repeat(50));
-  console.log(HANGMAN_PICS.HANGMAN_PICS[7]);
+  console.log(HANGMAN_PICS.HANGMAN_PICS[6]);
   console.log("Lost");
 }
 
