@@ -112,9 +112,15 @@ while ( won === undefined) {
 }
 
 if (won === true) {
+  console.log("\n".repeat(50));
+  console.log("  O\n" +
+    " /|\\\n" +
+    " / \\\n" +
+    "=========")
   console.log("Won!");
 } else if (won === false || won === undefined) {
   console.log("\n".repeat(50));
+
   console.log(HANGMAN_PICS.HANGMAN_PICS[6]);
   console.log("Lost");
 }
