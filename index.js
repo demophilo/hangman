@@ -84,10 +84,10 @@ let chosenLetters = new Set();
 let rightLetters = new Set();
 let wrongLetters = new Set();
 let remainingLives = 1;
-let won = undefined;
+let won = null;
 console.log("\n".repeat(clearingLines) + "_".repeat(wordToGuess.length))
 
-while (won === undefined) {
+while (won === null) {
   let chosenLetter = inputChosenLetter();
   if (chosenLetter === "quit"){
     break;
