@@ -7,8 +7,9 @@ const prompt = require("prompt-sync")();
 
 function choseGameMode() {
   let key = "";
+  console.log("Choose game: \"1\" for easy \"2\" for hard: ");
   while (!((key === "1") || (key === "2"))) {
-    key = prompt("Choose game: \"1\" for easy \"2\" for hard: ");
+    key = prompt();
   }
   if (key === "1"){
     return "easy";
@@ -19,7 +20,7 @@ function choseGameMode() {
 
 
 function chooseWordToGuess(gameMode) {
-  let wordToGuess;
+  let wordToGuess = "";
   if (gameMode === "easy") {
     wordToGuess = WORDS_TO_GUESS.easy[Math.floor(Math.random() * WORDS_TO_GUESS.easy.length)];
   } else if (gameMode === "hard"){
@@ -32,7 +33,7 @@ function chooseWordToGuess(gameMode) {
 function setLives(gameMode){
   let lives;
   if (gameMode === "easy") {
-    lives = 5;
+    lives = 6;
   } else if (gameMode === "hard"){
     lives = 3;
   }
@@ -72,8 +73,8 @@ function generateWordOnScreen(wordToGuess, rightLetters) {
   return displayedLetters.join("");
 }
 
-
-console.log("\n".repeat(50));
+let clearingLines = 33;
+console.log("\n".repeat(15));
 let gameMode = choseGameMode();
 let wordToGuess = chooseWordToGuess(gameMode);
 console.log(wordToGuess); // remove after presentation
@@ -84,6 +85,7 @@ let rightLetters = new Set();
 let wrongLetters = new Set();
 let remainingLives = 1;
 let won = undefined;
+console.log("\n".repeat(clearingLines) + "_".repeat(wordToGuess.length))
 
 while (won === undefined) {
   let chosenLetter = inputChosenLetter();
@@ -105,21 +107,21 @@ while (won === undefined) {
     won = false;
   }
 
-  console.log("\n".repeat(50));
-  console.log(HANGMAN_PICS.HANGMAN_PICS[5-remainingLives]);
+  console.log("\n".repeat(clearingLines));
+  console.log(HANGMAN_PICS.HANGMAN_PICS[6-remainingLives]);
   console.log(displayedWord);
   console.log("Remaining lives:  ", remainingLives);
 }
 
 if (won === true) {
-  console.log("\n".repeat(50));
+  console.log("\n".repeat(clearingLines));
   console.log("    O\n" +
     "   /|\\\n" +
     "   / \\\n" +
     "=========" +
     "   Won!")
 } else if (won === false || won === undefined) {
-  console.log("\n".repeat(50));
+  console.log("\n".repeat(clearingLines));
 
   console.log(HANGMAN_PICS.HANGMAN_PICS[6] + "  Lost");
 }
