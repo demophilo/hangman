@@ -9,33 +9,34 @@ const GAMEMODE_HARD = "hard";
 
 
 const QUIT = "quit";
-
-const ALLOWED_CHARACTERS = new Set(["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
-"p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]);
-
+const ALLOWED_CHARACTERS = new Set("abcdefghijklmnopqrstuvwxyz".split(""));
 function choseGameMode() {
   let key = "";
+  console.clear();
   console.log("Choose game: \"1\" for easy \"2\" for hard: ");
   while (!((key === "1") || (key === "2"))) {
     key = prompt();
   }
   if (key === "1"){
     return GAMEMODE_EASY;
-  } else if (key === "2") {
+  }
+  else if (key === "2") {
     return GAMEMODE_HARD;
   }
 }
 
-function getRandomNumber(limit) {
-  Math.floor(Math.random() * limit);
+function getRandomItem(list) {
+  let randomItem = list[Math.floor(Math.random() * list.length)];
+  return randomItem;
 }
 
 function chooseWordToGuess(gameMode) {
   let wordToGuess = "";
   if (gameMode === GAMEMODE_EASY) {
-    wordToGuess = WORDS_TO_GUESS.easy[getRandomNumber(WORDS_TO_GUESS.easy.length)];
-  } else {//else if (gameMode === GAMEMODE_HARD){
-    wordToGuess = WORDS_TO_GUESS.hard[getRandomNumber(WORDS_TO_GUESS.easy.length)];
+    wordToGuess = getRandomItem(WORDS_TO_GUESS.easy);
+  }
+  else {//else if (gameMode === GAMEMODE_HARD){
+    wordToGuess = getRandomItem(WORDS_TO_GUESS.hard);
   }
   return wordToGuess;
 }
@@ -45,29 +46,11 @@ function setLives(gameMode){
   let lives;
   if (gameMode === GAMEMODE_EASY) {
     lives = 6;
-  } else {//else if (gameMode === GAMEMODE_HARD){
+  }
+  else {//else if (gameMode === GAMEMODE_HARD){
     lives = 3;
   }
   return lives;
-}
-
-
-function inputChosenLetter() {
-  let input ="";
-
-  while (input.length !== 1) {
-    input = prompt("Which letter to attempt? ").toLowerCase();
-    if (input === QUIT) {      
-      break;
-    }
-
-    input = input.trim();
-    
-    if (!ALLOWED_CHARACTERS.has(input)) {
-      input = "";
-    }
-  }
-  return input;
 }
 
 
@@ -77,17 +60,34 @@ function generateWordOnScreen(wordToGuess, rightLetters) {
   for (const letterOfWord of lettersOfWord) {
     if (rightLetters.has(letterOfWord)) {
       displayedLetters.push(letterOfWord);
-    } else if (!rightLetters.has(letterOfWord)) {
+    }
+    else if (!rightLetters.has(letterOfWord)) {
       displayedLetters.push("_");
     }
   }
   return displayedLetters.join("");
 }
 
-//const CLEARING = 33;
-const NEWLINES = 15;
+
+function inputChosenLetter() {
+  let input ="";
+
+  while (input.length !== 1) {
+    input = prompt("Which letter to attempt? ");
+    if (input === QUIT) {
+      break;
+    }
+    input = input.trim();
+    input = input.toLowerCase();
+    if (!ALLOWED_CHARACTERS.has(input)) {
+      input = "";
+    }
+  }
+  return input;
+}
+
+
 console.clear();
-console.log("\n".repeat(NEWLINES));
 let gameMode = choseGameMode();
 let wordToGuess = chooseWordToGuess(gameMode);
 console.log(wordToGuess); // remove after presentation
@@ -98,7 +98,9 @@ let rightLetters = new Set();
 let wrongLetters = new Set();
 let remainingLives = 1;
 let won = false;
-console.log("\n".repeat(CLEARING) + "_".repeat(wordToGuess.length))
+console.clear();
+console.log(HANGMAN_PICS.HANGMAN_PICS[1]);
+console.log("_".repeat(wordToGuess.length));
 
 while (!won && remainingLives > 0) {
   let chosenLetter = inputChosenLetter();
@@ -118,39 +120,19 @@ while (!won && remainingLives > 0) {
     won = true;
   } 
 
-  console.log("\n".repeat(CLEARING));
-  console.log(HANGMAN_PICS.HANGMAN_PICS[6-remainingLives]);
+  console.clear();
+  console.log(HANGMAN_PICS.HANGMAN_PICS[HANGMAN_PICS.HANGMAN_PICS.length-remainingLives-1]);
   console.log(displayedWord);
   console.log("Remaining lives:  ", remainingLives);
 }
 
 if (won === true) {
-  console.log("\n".repeat(CLEARING));
-  console.log("    O\n" +
-    "   /|\\\n" +
-    "   / \\\n" +
-    "=========" +
-    "   Won!")
+  console.clear();
+  console.log(HANGMAN_PICS.HANGMAN_PICS[0])
 } else {//else if (won === false) {
-  console.log("\n".repeat(CLEARING));
-
-  console.log(HANGMAN_PICS.HANGMAN_PICS[6] + "  Lost");
+  console.clear();
+  console.log(HANGMAN_PICS.HANGMAN_PICS[HANGMAN_PICS.HANGMAN_PICS.length-1] + "  Lost");
 }
 
 
-/*
-function generateLettersToChoose(chosenLetters) {
-  let lettersToChoose = [];
-  for (const chosenLetter of Object.valueOf(chosenLetters)) {
-    for (const letterInAlphabet of Object.valueOf(alphabet)) {
-      if (chosenLetter === letterInAlphabet) {
-        lettersToChoose.push("_");
-      } else {
-        lettersToChoose.push(letterInAlphabet );
-      }
-    }
-  }
-  return lettersToChoose;
-}
 
-*/
